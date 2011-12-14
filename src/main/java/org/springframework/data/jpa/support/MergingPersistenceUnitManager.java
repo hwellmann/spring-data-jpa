@@ -68,6 +68,14 @@ public class MergingPersistenceUnitManager extends DefaultPersistenceUnitManager
 			}
 		}
 
+		for (String className : oldPui.getManagedClassNames()) {
+
+			if (!pui.getManagedClassNames().contains(className)) {
+				log.debug("Adding class {} to PersistenceUnit {}", className, pui.getPersistenceUnitName());
+				pui.addManagedClassName(className);
+			}
+		}
+
 		pui.addJarFileUrl(oldPui.getPersistenceUnitRootUrl());
 	}
 }
