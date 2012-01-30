@@ -15,6 +15,7 @@
  */
 package org.springframework.data.jpa.repository.cdi;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
@@ -24,7 +25,9 @@ class QualifiedEntityManagerProducer {
 
 	@Produces
 	@PersonDB
+	@ApplicationScoped
 	public EntityManager createEntityManager(EntityManagerFactory entityManagerFactory) {
+	    System.out.println("******* producing EntityManager");
 		return entityManagerFactory.createEntityManager();
 	}
 

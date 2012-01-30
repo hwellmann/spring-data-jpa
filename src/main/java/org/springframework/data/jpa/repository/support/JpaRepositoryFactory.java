@@ -40,7 +40,7 @@ public class JpaRepositoryFactory extends RepositoryFactorySupport {
 
 	private final EntityManager entityManager;
 	private final QueryExtractor extractor;
-	private final LockModeRepositoryPostProcessor lockModePostProcessor;
+	//private final LockModeRepositoryPostProcessor lockModePostProcessor;
 
 	/**
 	 * Creates a new {@link JpaRepositoryFactory}.
@@ -52,9 +52,9 @@ public class JpaRepositoryFactory extends RepositoryFactorySupport {
 		Assert.notNull(entityManager);
 		this.entityManager = entityManager;
 		this.extractor = PersistenceProvider.fromEntityManager(entityManager);
-		this.lockModePostProcessor = LockModeRepositoryPostProcessor.INSTANCE;
+		//this.lockModePostProcessor = LockModeRepositoryPostProcessor.INSTANCE;
 
-		addRepositoryProxyPostProcessor(lockModePostProcessor);
+		//addRepositoryProxyPostProcessor(lockModePostProcessor);
 	}
 
 	/*
@@ -88,7 +88,7 @@ public class JpaRepositoryFactory extends RepositoryFactorySupport {
 
 		SimpleJpaRepository<?, ?> repo = isQueryDslExecutor(repositoryInterface) ? new QueryDslJpaRepository(
 				entityInformation, entityManager) : new SimpleJpaRepository(entityInformation, entityManager);
-		repo.setLockMetadataProvider(lockModePostProcessor.getLockMetadataProvider());
+		//repo.setLockMetadataProvider(lockModePostProcessor.getLockMetadataProvider());
 
 		return repo;
 	}

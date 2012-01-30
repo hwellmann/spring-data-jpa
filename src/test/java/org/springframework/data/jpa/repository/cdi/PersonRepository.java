@@ -17,7 +17,7 @@ package org.springframework.data.jpa.repository.cdi;
 
 import java.util.List;
 
-interface PersonRepository {
+public interface PersonRepository {
 
 	List<Person> findAll();
 

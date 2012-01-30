@@ -15,12 +15,16 @@
  */
 package org.springframework.data.jpa.repository.cdi;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import javax.inject.Inject;
 
 @Transactional
 class RepositoryConsumer {
 
-	@Inject
+	//@Inject
 	private PersonRepository unqualifiedRepo;
 
 	@Inject
@@ -28,12 +32,14 @@ class RepositoryConsumer {
 	private PersonRepository qualifiedRepo;
 
 	public void findAll() {
-		unqualifiedRepo.findAll();
-		qualifiedRepo.findAll();
+		List<Person> persons; // = unqualifiedRepo.findAll();
+		//assertEquals(1, persons.size());
+		persons = qualifiedRepo.findAll();
+                assertEquals(1, persons.size());
 	}
 
 	public void save(Person person) {
-		unqualifiedRepo.save(person);
+		//unqualifiedRepo.save(person);
 		qualifiedRepo.save(person);
 	}
 }

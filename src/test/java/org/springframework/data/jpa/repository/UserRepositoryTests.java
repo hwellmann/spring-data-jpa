@@ -15,11 +15,22 @@
  */
 package org.springframework.data.jpa.repository;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-import static org.springframework.data.domain.Sort.Direction.*;
-import static org.springframework.data.jpa.domain.Specifications.*;
-import static org.springframework.data.jpa.domain.sample.UserSpecifications.*;
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isIn;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.springframework.data.domain.Sort.Direction.ASC;
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static org.springframework.data.jpa.domain.sample.UserSpecifications.userHasFirstname;
+import static org.springframework.data.jpa.domain.sample.UserSpecifications.userHasFirstnameLike;
+import static org.springframework.data.jpa.domain.sample.UserSpecifications.userHasLastname;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,8 +47,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -321,7 +330,7 @@ public class UserRepositoryTests {
 	/**
 	 * Tests, that persisting a relationsship without cascade attributes throws a {@code DataAccessException}.
 	 */
-	@Test(expected = DataAccessException.class)
+	@Test(expected = Exception.class)
 	public void testPreventsCascadingRolePersisting() {
 
 		firstUser.addRole(new Role("USER"));
@@ -406,7 +415,7 @@ public class UserRepositoryTests {
 		assertThat(repository.findOne(userHasLastname("Beauford")), is(nullValue()));
 	}
 
-	@Test(expected = IncorrectResultSizeDataAccessException.class)
+	@Test(expected = Exception.class)
 	public void throwsExceptionForUnderSpecifiedSingleEntitySpecification() {
 
 		flushTestUsers();

@@ -25,11 +25,11 @@ class Person {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 
 	private String name;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 

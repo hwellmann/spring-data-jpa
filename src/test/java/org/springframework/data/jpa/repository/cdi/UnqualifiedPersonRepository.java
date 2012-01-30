@@ -17,6 +17,6 @@ package org.springframework.data.jpa.repository.cdi;
 
 import org.springframework.data.repository.Repository;
 
-interface UnqualifiedPersonRepository extends PersonRepository, Repository<Person, Long> {
+interface UnqualifiedPersonRepository { //extends PersonRepository, Repository<Person, Long> {
 
 }

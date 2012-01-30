@@ -30,7 +30,11 @@
  */
 package org.springframework.data.jpa.repository.cdi;
 
-import javax.enterprise.inject.Any;
+import java.util.Set;
+
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.util.AnnotationLiteral;
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
@@ -43,11 +47,16 @@ import javax.persistence.EntityTransaction;
 class TransactionalInterceptor {
 
 	@Inject
-	@Any
+	@PersonDB
 	private EntityManager entityManager;
+	
+	@Inject
+	private BeanManager beanMgr;
 
 	@AroundInvoke
 	public Object runInTransaction(InvocationContext ctx) throws Exception {
+	    Set<Bean<?>> beans = beanMgr.getBeans(PersonRepository.class, new AnnotationLiteral<PersonDB>() {});
+	    
 		EntityTransaction entityTransaction = this.entityManager.getTransaction();
 		boolean isNew = !entityTransaction.isActive();
 		try {
